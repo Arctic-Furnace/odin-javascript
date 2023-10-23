@@ -17,6 +17,14 @@ stages:
     - script: echo Hello, world for stage A!
       displayName: 'Run a one-line script'
 
+- stage: A Fail
+  condition: failed()
+  jobs:
+  - job: A Fail
+    steps:
+    - script: echo Hello, world for stage A Failed!
+      displayName: 'Run a one-line script'    
+
 - stage: B
   dependsOn: A
   jobs:
