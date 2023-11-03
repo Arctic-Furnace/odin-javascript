@@ -1,0 +1,52 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: A
+  jobs:
+  - job: A1
+    steps:
+    - script: echo Hello, world for stage A!
+      displayName: 'Run a one-line script'
+
+- stage: A_Fail
+  condition: failed()
+  jobs:
+  - job: A_Fail
+    steps:
+    - script: echo Hello, world for stage A Failed!
+      displayName: 'Run a one-line script'    
+
+- stage: B
+  dependsOn: A
+  jobs:
+  - job: B1
+    steps:
+    - script: echo Hello, world for stage B!
+      displayName: 'Run a one-line script'
+
+- stage: C
+  dependsOn: A
+  jobs:
+  - job: C1
+    steps:
+    - script: echo Hello, world for stage C!
+      displayName: 'Run a one-line script'
+
+- stage: D
+  dependsOn: 
+  - B
+  - C
+  jobs:
+  - job: D1
+    steps:
+    - script: echo Hello, world for stage D!
+      displayName: 'Run a one-line script'
